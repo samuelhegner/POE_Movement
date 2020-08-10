@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                Debug.Log(" was hit but is not navigable");
+                Debug.Log(hit.transform.name + " was hit but is not navigable");
             }
         }
         else
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool CheckNavigableGround(RaycastHit hit)
     {
-        if (hit.transform.gameObject.layer == navigableMask)
+        if (navigableMask == (navigableMask | (1 << hit.transform.gameObject.layer)))
         {
             return true;
         }
