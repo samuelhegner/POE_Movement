@@ -10,6 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
 
     [SerializeField] private string movingParameter;
+    
     private int movingParameterID;
 
     private bool moving;
@@ -18,6 +19,7 @@ public class PlayerAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Get the id of the moving bool
         movingParameterID = Animator.StringToHash(movingParameter);
     }
 
@@ -26,6 +28,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (agent.velocity.magnitude > 0.35f)
         {
+            //the player is moving set animation bool to true
             if (!animator.GetBool(movingParameterID))
             {
                 ChangeAnimationBool(movingParameterID, true);
@@ -33,6 +36,7 @@ public class PlayerAnimation : MonoBehaviour
         }
         else
         {
+            //the player is stopped set animation bool to false
             if (animator.GetBool(movingParameterID))
             {
                 ChangeAnimationBool(movingParameterID, false);
