@@ -6,6 +6,7 @@
     <e p="F:\Unity Projects\POE_Movement\PathOfExile_Movement" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="PlayerAnimation.cs" t="Include" />
         <e p="PlayerMovement.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
