@@ -11,16 +11,44 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private NavMeshAgent agent;
     
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float clicksPerSecond = 2f;
+
+    private bool mouseCoroutineRunning = false;
+
+    private Coroutine mouseHeld;
 
     void Update()
     {
         //ToDo holding down mouse button to periodically set the new location
+        
+        
         if (Input.GetMouseButtonDown(0))
         {
+            RaycastToMouse();
+        }else if (Input.GetMouseButton(0))
+        {
+            if (mouseCoroutineRunning == false)
+            {
+                mouseHeld = StartCoroutine(PeriodicallyClicking());
+            }
+        }
+        else
+        {
+            if (mouseCoroutineRunning)
+            {
+                StopCoroutine(mouseHeld);
+                mouseCoroutineRunning = false;
+            }
+        }
+    }
+
+
+    IEnumerator PeriodicallyClicking()
+    {
+        mouseCoroutineRunning = true;
+        while (true)
+        {
+            yield return new WaitForSeconds(1f/clicksPerSecond);
             RaycastToMouse();
         }
     }
@@ -76,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
     void SetNewLocation(Vector3 worldSpaceLocation)
     {
         //ToDo check distance to point for more simplistic close movement
-        
         //sets the agents destination point
-        agent.SetDestination(worldSpaceLocation);
+        if(agent.destination != worldSpaceLocation)
+            agent.SetDestination(worldSpaceLocation);
     }
 }
